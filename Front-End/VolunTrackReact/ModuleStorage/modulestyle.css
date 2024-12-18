@@ -4,13 +4,21 @@
   left: 0;
   width: 100%;
   background-color: #5DBB63;
-  color: white;
+  color: rgb(146, 96, 96);
   padding: 20px 0;  
   text-align: center;
   height: 15px;  
 }
 
-#Footer {
-  
+#SignUpButton {
+  background-color: #50E642; 
+  color: white; 
+  border: 2px solid #FFFFFF; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 
 }
-
