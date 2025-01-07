@@ -6,6 +6,6 @@ import Footer from './ModuleStorage/footer.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <TopBar/>
-        {/*<Footer/>*/}
+        {/*<Footer/>}*/}
     </React.StrictMode>
 );
