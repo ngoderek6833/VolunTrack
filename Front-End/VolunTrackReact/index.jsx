@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import TopBar from './ModuleStorage/topbar.jsx'; 
-import Footer from './ModuleStorage/footer.jsx'; 
+import TopBar from './AuthenticationModuleStorage/topbar.jsx'; 
+import Footer from './AuthenticationModuleStorage/footer.jsx'; 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('AuthenticationPage')).render(
     <React.StrictMode>
         <TopBar/>
-        {/*<Footer/>}*/}
+        <Footer/>
     </React.StrictMode>
 );
