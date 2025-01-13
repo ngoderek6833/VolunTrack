@@ -3,7 +3,7 @@ import './modulestyle.css';
 function Footer() {
   return (
       <div id = "Footer">
-        Capstone Engineering Project: Derek Ngo, Kaeden Kiffe, John Savvidees, Kimberley Lodge
+        <span style={{ display: 'block', marginTop: '50px' }}>Capstone Engineering Project: Derek Ngo, Kaeden Kiffe, John Savvides, Kimberley Lodge</span>
       </div>
   );
 }

@@ -1,31 +1,50 @@
 #TopBar {
-  
+  margin: 0;
+  background-color: #0a6522;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#MiddleSection {
+  margin: 0;
+  background-color: #f9f9f9;
+  height: 300px;
 }
 
 #Footer {
-  margin-top: 20px;
+  height: 8rem;
+  margin: 0;
+  background-color: #0a6522;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #ffffff;
 }
 
-.Button {
-  background-color: white;
-  color: #4CAF50; 
-  border: 2px solid #4CAF50;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
+
+#Favicon {
+  height: 50px;
+  margin-right: 108rem;
 }
 
-.Button:hover {
-  background-color: #4CAF50;
+#SignUpButton, #SignInButton {
+  background-color: #28a745; 
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px; 
+  margin: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
-.Button:active {
-  background-color: #388E3C; 
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+#SignUpButton:hover, #SignInButton:hover {
+  background-color: #218838; 
+  transform: translateY(-2px); 
+}
+
+#SignUpButton:active, #SignInButton:active {
+  transform: translateY(2px); 
 }

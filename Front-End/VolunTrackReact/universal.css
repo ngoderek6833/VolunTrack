@@ -1,7 +1,13 @@
 * {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
 
 body {
-    background-color: #F0F0F0;
+  background-color: #f9f9f9;
+  color: #2d7746; 
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
