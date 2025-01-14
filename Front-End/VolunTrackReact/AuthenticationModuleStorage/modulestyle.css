@@ -9,7 +9,7 @@
 #MiddleSection {
   margin: 0;
   background-color: #f9f9f9;
-  height: 300px;
+  height: 700px;
 }
 
 #Footer {
@@ -47,4 +47,20 @@
 
 #SignUpButton:active, #SignInButton:active {
   transform: translateY(2px); 
+}
+
+#H1CSS {
+  text-align: center; 
+  position: relative;
+  left: 20px; 
+  margin: 0 auto; 
+}
+
+#H1CSS h1 {
+  font-family: 'Arial', sans-serif; 
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  color: #218838; 
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); 
+  margin-bottom: 10px; 
 }

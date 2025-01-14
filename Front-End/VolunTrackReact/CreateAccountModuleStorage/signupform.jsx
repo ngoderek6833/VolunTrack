@@ -3,6 +3,10 @@ import './modulestyle.css';
 function SignUpForm() {
     return (
         <form id = "Form">
+            <h1>
+                Sign Up
+            </h1>
+            <hr></hr>
             <div>
                 <label htmlFor="type">Pick a Type</label>
                 <select id="type" name="type">
