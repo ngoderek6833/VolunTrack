@@ -1,6 +1,5 @@
 import './modulestyle.css';
 
-
 function SignUpForm() {
     return (
         <form id = "Form">
