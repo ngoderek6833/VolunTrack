@@ -1,1 +1,17 @@
-1/13/25 : started incorporating firebase auth
+1/21 - implement signup and signin (google, email and password) authentication 
+
+1/28 - implement regular user and admin roles, add profile information
+
+2/11 - implement admin creation of events (google maps) tab (admin), admin volunteer request tab (admin), admin events posted tab (admin)
+
+2/18 - implement user find and signup tab (user)
+
+2/25 - implement future events tab (user)
+
+3/4 - implement hour logging tab (user)
+
+3/11 - implement user dashboard tab (user)
+
+3/28 - fix bugs, fancy website up, fill up white space, add more explanations of things, add settings page 
+
+if time, implement clubs and more admin authentication
