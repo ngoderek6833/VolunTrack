@@ -26,6 +26,7 @@
 #Favicon {
   height: 50px;
   margin-right: 108rem;
+  cursor: pointer; 
 }
 
 #SignUpButton, #SignInButton {
@@ -64,3 +65,4 @@
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); 
   margin-bottom: 10px; 
 }
+

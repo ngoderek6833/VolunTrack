@@ -7,7 +7,7 @@ import Favicon from '../../../Miscellaneous/Images/turtlefavicon.png';
 function TopBar() {
   return (
     <div id="TopBar">
-      <img src={Favicon} id = "Favicon"/>
+      <img src={Favicon} id="Favicon" alt="Turtle Favicon" />
       <SignUpButton />
       <SignInButton />
     </div>
