@@ -10,6 +10,7 @@
   margin: 0;
   background-color: #f9f9f9;
   height: 38rem;
+  padding: 0rem;
 }
 
 #Footer {
@@ -35,6 +36,12 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+  margin: 10px 0; 
+  border: 0;
+  border-top: 1px solid #0a6522;
 }
 
 .form-group {

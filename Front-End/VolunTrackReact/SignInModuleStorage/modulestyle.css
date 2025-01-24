@@ -10,6 +10,7 @@
   margin: 0;
   background-color: #f9f9f9;
   height: 25rem;
+  padding: 0rem;
 }
 
 #Footer {
@@ -41,6 +42,7 @@
 .form-group {
   margin-bottom: 15px;
 }
+
 
 label {
   display: block;
