@@ -23,19 +23,8 @@ function SignUpForm() {
                 <h1>Sign Up</h1>
                 <hr />
                 <div>
-                    <label htmlFor="type">Pick a Type</label>
-                    <select id="type" name="type">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-                <div>
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" name="email" required />
-                </div>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input type="text" id="username" name="username" required />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
