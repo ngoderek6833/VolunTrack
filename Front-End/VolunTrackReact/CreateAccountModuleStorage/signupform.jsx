@@ -1,8 +1,9 @@
 import './modulestyle.css';
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../../Back-End/Firebase/firebaseconfig";
 function SignUpForm() {
     const handleSubmit = async (event) => {
+        event.preventDefault()
         const email = event.target.email.value;
         const password = event.target.password.value;
         const retypePassword = event.target.retypePassword.value;

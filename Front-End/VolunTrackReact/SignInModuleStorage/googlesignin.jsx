@@ -1,7 +1,7 @@
 import './modulestyle.css';
-import { GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver } from "@firebase/auth";
 import { auth } from "../../../Back-End/Firebase/firebaseconfig"; 
-import { handleSignInGoogle } from '../../../Back-End/HandleSignIn/handlesignin';
+import { initializeAccount } from '../../../Back-End/InitializeAccount/initializeaccount';
 
 function GoogleSignIn() {
     const handleGoogle = async () => {
@@ -9,7 +9,7 @@ function GoogleSignIn() {
         try {
             const result = await signInWithPopup(auth, provider, browserPopupRedirectResolver);
             const user = result.user; 
-            handleSignInGoogle(user); 
+            initializeAccount(user);
         } catch (error) {
             console.error("Error signing in with Google:", error.message);
         }

@@ -1,16 +1,27 @@
-import "./modulestyle.css"; 
-import { handleSignIn } from "../../../Back-End/HandleSignIn/handlesignin";
+import "./modulestyle.css";
+import {GoogleAuthProvider, signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../../../Back-End/Firebase/firebaseconfig";
+import { initializeAccount } from "../../../Back-End/InitializeAccount/initializeaccount";
 
 function SignInForm() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const email = event.target.email.value; 
-        const password = event.target.password.value; 
-        handleSignIn(email, password); 
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                initializeAccount(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message; 
+                console.log(errorCode,"second", errorMessage);
+            });
     };
 
     return (
-        <form id="Form" onSubmit={handleSubmit}> 
+        <form id="Form" onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" name="email" required />
