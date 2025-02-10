@@ -1,18 +1,42 @@
 import './modulestyle.css';
 import { GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver } from "@firebase/auth";
-import { auth } from "../../../Back-End/Firebase/firebaseconfig"; 
-import { initializeAccount } from '../../../Back-End/InitializeAccount/initializeaccount';
+import { auth, db } from "../../../Firebase/firebaseconfig";
+import { setDoc, doc, getDoc } from "@firebase/firestore";
+import { initializeAccount } from "../InitializeModules/initializeaccount";
 
 function GoogleSignIn() {
     const handleGoogle = async () => {
         const provider = new GoogleAuthProvider();
-        try {
-            const result = await signInWithPopup(auth, provider, browserPopupRedirectResolver);
-            const user = result.user; 
-            initializeAccount(user);
-        } catch (error) {
-            console.error("Error signing in with Google:", error.message);
-        }
+        event.preventDefault();
+        signInWithPopup(auth, provider)
+            .then((userCredential) => {
+                console.log("Log-in is successful");
+                const user = userCredential.user;
+                const docRef = doc(db, "users", user.uid);
+                getDoc(docRef)
+                    .then((docSnap) => {
+                        if (!docSnap.exists()) {
+                            const userData = {
+                                firstName: user.displayName?.split(" ")[0] || "",
+                                lastName: user.displayName?.split(" ")[1] || "",
+                                email: user.email,
+                                initialized: false
+                            };
+
+                            setDoc(docRef, userData)
+                                .then(() => console.log("New Google user added to Firestore"))
+                                .catch((error) => console.error("Error adding user to Firestore:", error));
+                        } else {
+                            console.log("User already exists in Firestore");
+                        }
+                    })
+                    .catch((error) => console.error("Error fetching user document:", error));
+                localStorage.setItem("loggedInUserId", user.uid);
+                initializeAccount(user.uid);
+            })
+            .catch((error) => {
+                console.log("Error signing in with Google:", error);
+            })
     };
 
     return (
