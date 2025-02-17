@@ -9,11 +9,12 @@ function SignInForm() {
         const email = event.target.email.value;
         const password = event.target.password.value;
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            .then(async(userCredential) => {
                 console.log("Log-in is succesful");
                 const user = userCredential.user;
                 localStorage.setItem("loggedInUserId", user.uid);
-                initializeAccount(user.uid);
+                alert("Logged in succesfully");
+                await initializeAccount(user.uid);
             })
             .catch((error) => {
                 const errorCode = error.code;
