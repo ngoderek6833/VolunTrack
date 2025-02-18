@@ -17,7 +17,14 @@ function InitializeForm() {
             await setDoc(userRef, { phoneNumber, age, grade, school, role, initialized: true }, { merge: true });
             console.log("Account initialized successfully");
             alert("Account initialized successfully!");
-            window.location.href = "../HomepageModules/homepage.html";
+            switch (role) {
+                case "volunteer":
+                    window.location.href = "../VolunteerHomepageModules/homepage.html";
+                    break;
+                case "admin":
+                    window.location.href = "../AdminHomepageModules/homepage.html";
+                    break;
+            }
         } catch (error) {
             console.error("Error initializing account:", error);
             alert("Error initializing account. Please try again.");

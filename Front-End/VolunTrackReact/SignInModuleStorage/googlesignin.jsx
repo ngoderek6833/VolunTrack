@@ -8,15 +8,12 @@ function GoogleSignIn() {
     const handleGoogle = async (event) => {
         const provider = new GoogleAuthProvider();
         event.preventDefault();
-        
         try {
             const userCredential = await signInWithPopup(auth, provider);
             console.log("Log-in is successful");
-
             const user = userCredential.user;
             const docRef = doc(db, "users", user.uid);
             const docSnap = await getDoc(docRef);
-
             if (!docSnap.exists()) {
                 const userData = {
                     firstName: user.displayName?.split(" ")[0] || "",
@@ -26,13 +23,13 @@ function GoogleSignIn() {
                 };
                 await setDoc(docRef, userData, { merge: true }); 
                 console.log("New Google user added to Firestore");
+                localStorage.setItem("loggedInUserId", user.uid);
                 await initializeAccount();
             } else {
                 console.log("User already exists in Firestore");
+                localStorage.setItem("loggedInUserId", user.uid);
                 await initializeAccount();
             }
-
-            localStorage.setItem("loggedInUserId", user.uid);
         } catch (error) {
             console.error("Error signing in with Google:", error);
         }
