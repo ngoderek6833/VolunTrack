@@ -37,7 +37,7 @@ function InitializeForm() {
                 <hr />
                 <div>
                     <label htmlFor="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{9}" maxLength="9" required />
+                    <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" maxLength="10" required />
                 </div>
                 <div>
                     <label htmlFor="age">Age</label>

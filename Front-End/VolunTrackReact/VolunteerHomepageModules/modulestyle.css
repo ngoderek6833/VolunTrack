@@ -1,64 +1,99 @@
 #TopBar {
-    margin: 0;
-    background-color: #0a6522;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
-  }
+  margin: 0;
+  background-color: #0a6522;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
 
-  #MiddleSection {
-    margin: 0;
-    background-color: #f9f9f9;
-    height: 700px;
-    padding: 3rem;
-    
-  }
-  
-  #Footer {
-    height: 8rem;
-    margin: 0;
-    background-color: #0a6522;
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    color: #ffffff;
-  }
-  
-  #Favicon {
-    height: 50px;
-    margin-right: 108rem;
-    cursor: pointer; 
-  }
-  
-  #LogoutButton{
-    background-color: #28a745; 
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px; 
-    margin: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease; 
-  }
+#MiddleSection {
+  margin: 0;
+  background-color: #f9f9f9;
+  height: 700px;
+  padding: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  #SettingsButton {
-    background-color: #28a745; 
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px; 
-    margin: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease; 
-  }
-  
-  #LogoutButton:hover, #SettingsButton:hover {
-    background-color: #218838; 
-    transform: translateY(-2px); 
-  }
-  
-  #LogoutButton:active, #SettingsButton:active {
-    transform: translateY(2px); 
-  }
+#Footer {
+  height: 8rem;
+  margin: 0;
+  background-color: #0a6522;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+#Favicon {
+  height: 50px;
+  margin-right: 108rem;
+  cursor: pointer;
+}
+
+#LogoutButton, #SettingsButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#LogoutButton:hover, #SettingsButton:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+#LogoutButton:active, #SettingsButton:active {
+  transform: translateY(2px);
+}
+
+.tab-bar {
+  display: flex;
+  width: 95%;
+  justify-content: space-around;
+  background-color: #0a6522;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+.tab-button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+}
+
+.tab-button.active {
+  font-weight: bold;
+  border-bottom: 0.2rem solid white;
+}
+
+.tab-content {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  width: 95%;
+  text-align: center;
+  font-size: 1.125rem;
+  background-color: #ffffff;
+  flex-grow: 1;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+
+
+
+
+
