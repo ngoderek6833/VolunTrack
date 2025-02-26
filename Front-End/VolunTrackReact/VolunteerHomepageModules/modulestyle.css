@@ -71,12 +71,16 @@
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, font-weight 0.3s ease;
+  transition: font-weight 0.3s ease;
 }
 
 .tab-button.active {
   font-weight: bold;
   border-bottom: 0.2rem solid white;
+}
+
+.tab-button:hover {
+  background-color: transparent;
 }
 
 .tab-content {
@@ -92,8 +96,67 @@
   margin-bottom: 0.5rem;
 }
 
+.event-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  width: 80%;
+}
 
+.event-card {
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #0a6522;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.event-card:hover {
+  background-color: #e0e0e0;
+}
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.popup-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
