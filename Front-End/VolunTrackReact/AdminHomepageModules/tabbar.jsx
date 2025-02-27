@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./modulestyle.css";
 import { db } from "../../../Firebase/firebaseconfig";
-import { setDoc, doc } from "@firebase/firestore";
+import { setDoc, doc, getDoc } from "@firebase/firestore";
 
 function TabBar() {
   const [activeTab, setActiveTab] = useState("create");
@@ -14,8 +14,21 @@ function TabBar() {
     age: "",
     description: ""
   });
+  const [adminEmail, setAdminEmail] = useState("");
 
-  const ID = localStorage.getItem("loggedInUserId"); 
+  const ID = localStorage.getItem("loggedInUserId");
+
+  useEffect(() => {
+    const fetchAdminEmail = async () => {
+      if (ID) {
+        const userDoc = await getDoc(doc(db, "users", ID));
+        if (userDoc.exists()) {
+          setAdminEmail(userDoc.data().email);
+        }
+      }
+    };
+    fetchAdminEmail();
+  }, [ID]);
 
   const handleChange = (e) => {
     setEventData({ ...eventData, [e.target.name]: e.target.value });
@@ -29,8 +42,16 @@ function TabBar() {
       return;
     }
 
-    const eventID = `${eventData.name}_${eventData.date}`;
-    const eventWithAdmin = { ...eventData, adminID: ID }; 
+    const timestamp = Date.now();
+    const eventID = `${ID}_${timestamp}`;
+    const eventWithAdmin = { 
+      ...eventData, 
+      adminID: ID, 
+      adminEmail, 
+      createdAt: timestamp,
+      requests: [],
+      participants: []
+    };
 
     try {
       await setDoc(doc(db, "events", eventID), eventWithAdmin);
