@@ -12,7 +12,8 @@ function TabBar() {
     date: "",
     limit: "",
     age: "",
-    description: ""
+    description: "",
+    totalHours: ""
   });
   const [adminEmail, setAdminEmail] = useState("");
 
@@ -42,8 +43,8 @@ function TabBar() {
       return;
     }
 
+    const eventID = `${ID} ${eventData.name}`;
     const timestamp = Date.now();
-    const eventID = `${ID}_${timestamp}`;
     const eventWithAdmin = { 
       ...eventData, 
       adminID: ID, 
@@ -63,7 +64,8 @@ function TabBar() {
         date: "",
         limit: "",
         age: "",
-        description: ""
+        description: "",
+        totalHours: ""
       });
     } catch (error) {
       console.error("Error creating event: ", error);
@@ -97,6 +99,7 @@ function TabBar() {
               <input type="date" name="date" value={eventData.date} onChange={handleChange} required />
               <input type="number" name="limit" placeholder="Limit of People" value={eventData.limit} onChange={handleChange} required />
               <input type="number" name="age" placeholder="Minimum Age" value={eventData.age} onChange={handleChange} required />
+              <input type="number" name="totalHours" placeholder="Total Hours" value={eventData.totalHours} onChange={handleChange} required />
               <textarea name="description" placeholder="Event Description" value={eventData.description} onChange={handleChange} required></textarea>
               <button type="submit" id="SubmitButton">Create Event</button>
             </form>

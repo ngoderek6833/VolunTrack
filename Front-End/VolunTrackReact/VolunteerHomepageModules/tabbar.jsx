@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./modulestyle.css";
 import { db } from "../../../Firebase/firebaseconfig";
-import { collection, getDocs, doc, updateDoc, arrayUnion, setDoc, getDoc } from "@firebase/firestore";
+import { collection, getDocs, doc, updateDoc, arrayUnion, getDoc } from "@firebase/firestore";
 
 function TabBar() {
   const [activeTab, setActiveTab] = useState("events");
