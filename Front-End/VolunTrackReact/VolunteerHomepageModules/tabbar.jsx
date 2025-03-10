@@ -9,7 +9,6 @@ function TabBar() {
   const [requestedEvents, setRequestedEvents] = useState([]);
   const [activeEvent, setActiveEvent] = useState(null);
   const userID = localStorage.getItem("loggedInUserId");
-  const userAge = parseInt(localStorage.getItem("loggedInUserAge"), 10);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -58,28 +57,39 @@ function TabBar() {
     }
     if (!activeEvent) return;
 
-    if (userAge < activeEvent.age) {
-      alert("You are not old enough to request this event.");
-      return;
-    }
-
-    if (activeEvent.requests && activeEvent.requests.includes(userID)) {
-      alert("You have already requested to join this event.");
-      return;
-    }
-
     try {
+      const userRef = doc(db, "users", userID);
+      const userSnap = await getDoc(userRef);
+      
+      if (!userSnap.exists()) {
+        alert("Error: User not found.");
+        return;
+      }
+
+      const userData = userSnap.data();
+      const userAge = userData.age; 
+
+      if (userAge < activeEvent.age) {
+        alert(`You must be at least ${activeEvent.age} years old to request this event.`);
+        return;
+      }
+
+      if (activeEvent.requests?.includes(userID)) {
+        alert("You have already requested to join this event.");
+        return;
+      }
+
       const eventRef = doc(db, "events", activeEvent.id);
       await updateDoc(eventRef, {
         requests: arrayUnion(userID)
       });
 
-      const userRef = doc(db, "users", userID);
       await updateDoc(userRef, {
-        requestedEvents: arrayUnion(activeEvent)
+        requestedEvents: arrayUnion(activeEvent.id)
       });
 
-      setRequestedEvents([...requestedEvents, { ...activeEvent }]);
+      setRequestedEvents([...requestedEvents, activeEvent.id]);
+
       alert("Request sent successfully!");
     } catch (error) {
       console.error("Error sending request:", error);
@@ -90,28 +100,16 @@ function TabBar() {
   return (
     <>
       <div className="tab-bar">
-        <button
-          className={`tab-button ${activeTab === "events" ? "active" : ""}`}
-          onClick={() => setActiveTab("events")}
-        >
+        <button className={`tab-button ${activeTab === "events" ? "active" : ""}`} onClick={() => setActiveTab("events")}>
           Find Events
         </button>
-        <button
-          className={`tab-button ${activeTab === "requested" ? "active" : ""}`}
-          onClick={() => setActiveTab("requested")}
-        >
+        <button className={`tab-button ${activeTab === "requested" ? "active" : ""}`} onClick={() => setActiveTab("requested")}>
           Events Requested
         </button>
-        <button
-          className={`tab-button ${activeTab === "upcoming" ? "active" : ""}`}
-          onClick={() => setActiveTab("upcoming")}
-        >
+        <button className={`tab-button ${activeTab === "upcoming" ? "active" : ""}`} onClick={() => setActiveTab("upcoming")}>
           Upcoming Events
         </button>
-        <button
-          className={`tab-button ${activeTab === "hours" ? "active" : ""}`}
-          onClick={() => setActiveTab("hours")}
-        >
+        <button className={`tab-button ${activeTab === "hours" ? "active" : ""}`} onClick={() => setActiveTab("hours")}>
           Hours
         </button>
       </div>
@@ -121,11 +119,7 @@ function TabBar() {
             <div className="event-list">
               {events.length > 0 ? (
                 events.map((event) => (
-                  <div
-                    className="event-card"
-                    key={event.id}
-                    onClick={() => handleEventClick(event)}
-                  >
+                  <div className="event-card" key={event.id} onClick={() => handleEventClick(event)}>
                     <h3>{event.name}</h3>
                     <p>Max People: {event.limit}</p>
                     <p>Time: {event.timeRange}</p>
@@ -159,14 +153,17 @@ function TabBar() {
           <div className="event-container">
             <div className="event-list">
               {requestedEvents.length > 0 ? (
-                requestedEvents.map((event) => (
-                  <div className="event-card" key={event.id} onClick={() => handleEventClick(event)}>
-                    <h3>{event.name}</h3>
-                    <p>Max People: {event.limit}</p>
-                    <p>Time: {event.timeRange}</p>
-                    <p>Age Limit: {event.age}</p>
-                  </div>
-                ))
+                requestedEvents.map((eventId) => {
+                  const event = events.find(e => e.id === eventId);
+                  return event ? (
+                    <div className="event-card" key={event.id} onClick={() => handleEventClick(event)}>
+                      <h3>{event.name}</h3>
+                      <p>Max People: {event.limit}</p>
+                      <p>Time: {event.timeRange}</p>
+                      <p>Age Limit: {event.age}</p>
+                    </div>
+                  ) : null;
+                })
               ) : (
                 <p>No requested events.</p>
               )}
