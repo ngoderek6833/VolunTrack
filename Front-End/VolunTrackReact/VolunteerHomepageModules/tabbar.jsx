@@ -130,25 +130,9 @@ function TabBar() {
                 <p>No events available.</p>
               )}
             </div>
-
-            {activeEvent && (
-              <div className="popup-overlay" onClick={handleClosePopup}>
-                <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                  <h2>{activeEvent.name}</h2>
-                  <p><strong>Location:</strong> {activeEvent.location}</p>
-                  <p><strong>Time Range:</strong> {activeEvent.timeRange}</p>
-                  <p><strong>Date:</strong> {activeEvent.date}</p>
-                  <p><strong>Description:</strong> {activeEvent.description}</p>
-                  <p><strong>Admin Email:</strong> {activeEvent.adminEmail}</p>
-                  <p><strong>Max People:</strong> {activeEvent.limit}</p>
-                  <p><strong>Age Limit:</strong> {activeEvent.age}</p>
-                  <button onClick={handleRequest}>Request</button>
-                  <button onClick={handleClosePopup}>Close</button>
-                </div>
-              </div>
-            )}
           </div>
         )}
+
         {activeTab === "requested" && (
           <div className="event-container">
             <div className="event-list">
@@ -170,9 +154,27 @@ function TabBar() {
             </div>
           </div>
         )}
+
         {activeTab === "upcoming" && <div>Upcoming events will be displayed here.</div>}
         {activeTab === "hours" && <div>Check your hours here.</div>}
       </div>
+
+      {activeEvent && (
+        <div className="popup-overlay" onClick={handleClosePopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{activeEvent.name}</h2>
+            <p><strong>Location:</strong> {activeEvent.location}</p>
+            <p><strong>Time Range:</strong> {activeEvent.timeRange}</p>
+            <p><strong>Date:</strong> {activeEvent.date}</p>
+            <p><strong>Description:</strong> {activeEvent.description}</p>
+            <p><strong>Admin Email:</strong> {activeEvent.adminEmail}</p>
+            <p><strong>Max People:</strong> {activeEvent.limit}</p>
+            <p><strong>Age Limit:</strong> {activeEvent.age}</p>
+            {activeTab === "events" && <button onClick={handleRequest}>Request</button>}
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

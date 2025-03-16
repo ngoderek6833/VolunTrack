@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./modulestyle.css";
 import { db } from "../../../Firebase/firebaseconfig";
-import { setDoc, doc, getDoc } from "@firebase/firestore";
+import { setDoc, doc, getDoc, collection, getDocs, updateDoc } from "@firebase/firestore";
 
 function TabBar() {
   const [activeTab, setActiveTab] = useState("create");
@@ -16,6 +16,9 @@ function TabBar() {
     totalHours: ""
   });
   const [adminEmail, setAdminEmail] = useState("");
+  const [eventRequests, setEventRequests] = useState([]);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const ID = localStorage.getItem("loggedInUserId");
 
@@ -29,6 +32,21 @@ function TabBar() {
       }
     };
     fetchAdminEmail();
+  }, [ID]);
+
+  useEffect(() => {
+    const fetchEventRequests = async () => {
+      if (ID) {
+        const eventsQuery = collection(db, "events");
+        const querySnapshot = await getDocs(eventsQuery);
+        const events = [];
+        querySnapshot.forEach((doc) => {
+          events.push(doc.data());
+        });
+        setEventRequests(events);
+      }
+    };
+    fetchEventRequests();
   }, [ID]);
 
   const handleChange = (e) => {
@@ -73,6 +91,33 @@ function TabBar() {
     }
   };
 
+  const openPopup = (event, request) => {
+    setSelectedRequest({ event, request });
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setSelectedRequest(null);
+  };
+
+  const handleRequestAction = async (action) => {
+    const { event, request } = selectedRequest;
+    const eventRef = doc(db, "events", event.eventID);
+    let updatedRequests = event.requests.map(req =>
+      req.email === request.email ? { ...req, status: action } : req
+    );
+    
+    try {
+      await updateDoc(eventRef, { requests: updatedRequests });
+      alert(`${action} request successfully!`);
+      closePopup();
+    } catch (error) {
+      console.error("Error updating request status: ", error);
+      alert("Failed to update request status.");
+    }
+  };
+
   return (
     <>
       <div className="tab-bar">
@@ -105,10 +150,51 @@ function TabBar() {
             </form>
           </div>
         )}
-        {activeTab === "requests" && <div><p>View and manage requests from users interested in your events.</p></div>}
+        {activeTab === "requests" && (
+          <div>
+            {eventRequests.length > 0 ? (
+              eventRequests.map((event, index) => (
+                <div key={index}>
+                  <h3>{event.name}</h3>
+                  <div>
+                    {event.requests.map((request, i) => (
+                      <button
+                        key={i}
+                        onClick={() => openPopup(event, request)}
+                        className="event-card"
+                      >
+                        {request.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No event requests available.</p>
+            )}
+          </div>
+        )}
         {activeTab === "finished" && <div><p>Check completed events and gather feedback.</p></div>}
         {activeTab === "past" && <div><p>Review past events and track historical event data.</p></div>}
       </div>
+
+      {showPopup && selectedRequest && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>{selectedRequest.request.name}</h2>
+            <p><strong>Email:</strong> {selectedRequest.request.email || "None"}</p>
+            <p><strong>Phone Number:</strong> {selectedRequest.request.phoneNumber || "None"}</p>
+            <p><strong>Age:</strong> {selectedRequest.request.age || "None"}</p>
+            <p><strong>School:</strong> {selectedRequest.request.school || "None"}</p>
+            <p><strong>Grade:</strong> {selectedRequest.request.grade || "None"}</p>
+            <div>
+              <button onClick={() => handleRequestAction('approved')}>Approve</button>
+              <button onClick={() => handleRequestAction('denied')}>Deny</button>
+              <button onClick={closePopup}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
